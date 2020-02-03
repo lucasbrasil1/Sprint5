@@ -59,7 +59,7 @@ public class ProdutoDAO implements XML{
 			inputStream = new FileInputStream(arquivo);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Erro no arquivo!");
+			System.out.println("Erro, arquivo não encontrado!");
 		}
 		TypeReference<List<Produto>> typeReference = new TypeReference<List<Produto>>() {};
 		List<Produto> lista = null;
@@ -85,6 +85,6 @@ public class ProdutoDAO implements XML{
 			System.out.println("Lista vazia, inserir dados antes");
 			return null;
 		}
-		return Collections.unmodifiableList(lista);
+		return lista;
 	}
 }

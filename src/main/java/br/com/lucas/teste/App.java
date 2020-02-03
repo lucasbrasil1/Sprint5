@@ -9,6 +9,7 @@ import br.com.lucas.modelo.Pedido;
 import br.com.lucas.modelo.Produto;
 import br.com.lucas.service.ClienteCadastro;
 import br.com.lucas.service.ClienteLista;
+import br.com.lucas.service.PedidoCadastro;
 import br.com.lucas.service.ProdutoCadastro;
 import br.com.lucas.service.ProdutoLista;
 
@@ -60,26 +61,68 @@ public class App {
 
 	private static void cadastraPedido() throws IOException {
 		Pedido pedido = new Pedido();
+		Cliente cliente = new Cliente();
+		PedidoCadastro cadastro = new PedidoCadastro();
 		System.out.println("Digite o código do cliente do pedido: ");
-//		pedido.setCliente(new ClienteLista().findId(Integer.parseInt(scan.next())));
 		int codigo = Integer.parseInt(scan.next());
-		int quantidade;
+		
+		/*
+		 * Verifica se cliente existe, senão mostra mensagem
+		 * 
+		 * Adiciona cliente como item do pedido
+		 * 
+		 * -- loop
+		 * 
+		 * Verifica se produto existe
+		 * Se existir: Verifica se quantidade solicitada é menor que quantidade em estoque
+		 * -> se for: diminui o valor em estoque e devolve oq
+		 * senão: Entrega mensage dizendo que a quantidade é inválida, favor inserir outra quantidade
+		 * 
+		 * Adiciona produto a lista de produtos.
+		 * 
+		 * -- endloop
+		 * 
+		 * Finalizados os produtos devolve o valor total da lista.
+		 * 
+		 * Insere pedido na lista de pedidos
+		 * 
+		 * Manda para o XML
+		 */
+		
+		cliente = cadastro.getCliente(codigo);
+		pedido.setCliente(cliente);
+
+		listaEstoque();
+		
+		int quantidade = 0;
+		int codigoDoProduto;
 		do {
-			listaEstoque();
 			System.out.print("Digite o código do produto que deseja adicionar ao pedido: (0 para sair) ");
-			codigo = scan.nextInt();
+			codigoDoProduto = scan.nextInt();
 			
+			if(codigoDoProduto == 0) {
+				break;
+			}
+				
 			System.out.print("Quantidade: ");
 			quantidade = scan.nextInt();
 			
-			pedido.adicionaItem(codigo, quantidade);
-		} while(codigo != 0);
+			
+			if(!pedido.adicionaItem(codigo, quantidade)) {
+				break;
+			}
+		} while(codigoDoProduto != 0);
+		
+		cadastro.cadastra(pedido);
 	}
 
 
 	private static void listaClientes() {
 		List<Cliente> listaClientes = new ClienteLista().buscarTodos();
+		if(listaClientes != null)
 		listaClientes.forEach(cliente -> System.out.println("Código: "+cliente.getId()+" - Nome: "+cliente.getNome()));
+		
+		
 	}
 
 	private static void cadastraCliente() throws IOException {

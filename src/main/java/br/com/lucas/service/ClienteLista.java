@@ -8,22 +8,26 @@ import br.com.lucas.modelo.Cliente;
 public class ClienteLista {
 
 	private ClienteDAO clienteDAO = new ClienteDAO();
-	
-	public List<Cliente> buscarTodos(){
-		return (List<Cliente>) clienteDAO.getLista();
+
+	public List<Cliente> buscarTodos() {
+		return clienteDAO.findAll();
 	}
-	
-//	public Cliente findId(int id) {
-//		Cliente cliente = new Cliente();
-//		
-//		buscarTodos().forEach(c -> {
-//			if(c.getId() == id) {
-//				cliente.setNome(c.getNome());
-//			}
-//		});
-//		if(buscarTodos().contains(cliente)) return cliente;
-//		System.out.println("Cliente não existe!");
-//		return null;
-//	}
-	
+
+	public Cliente getClientePorID(int codigo) {
+		Cliente cli = new Cliente();
+		
+		if(buscarTodos().isEmpty()) {
+			return cli;
+		}
+		
+		buscarTodos().forEach(c -> {
+			if (c.getId() == codigo) {
+				cli.setNome(c.getNome());
+				cli.setId(c.getId());
+			}
+		});
+		return cli;
+		
+	}
+
 }

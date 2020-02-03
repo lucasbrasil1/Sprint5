@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -13,9 +14,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
+import br.com.lucas.jackson.XML;
 import br.com.lucas.modelo.Cliente;
 
-public class ClienteDAO {
+public class ClienteDAO implements XML {
 	private static List<Cliente> clientes = new ArrayList<Cliente>();
 	private String filename = "clientes.xml";
 	private File arquivo = new File(filename);
@@ -28,19 +30,10 @@ public class ClienteDAO {
 		}
 		return instance;
 	}
-	
-	public ClienteDAO() {
-		if(!arquivo.exists()) {
-			arquivo.mkdir();
-		} else {
-			clientes = getLista();
-		}
-	}
-	
+
 	public void adicionaCliente(Cliente cliente) {
 		clientes.add(cliente);
 		escreveListaNoArquivo();
-//		escreveListaNoArquivo();
 	}
 	
 	public void escreveListaNoArquivo() {
@@ -51,7 +44,10 @@ public class ClienteDAO {
 		}
 	}
 	
-
+	public List<Cliente> findAll(){
+		return Collections.unmodifiableList(getLista());
+	}
+	
 	public List<Cliente> getLista() {
 		
 		InputStream inputStream = null;
@@ -62,24 +58,24 @@ public class ClienteDAO {
 			System.out.println("Erro no arquivo!");
 		}
 		TypeReference<List<Cliente>> typeReference = new TypeReference<List<Cliente>>() {};
-		List<Cliente> lista = null;
+		List<Cliente> lista = new ArrayList<Cliente>();
 		try {
 			lista = xmlMapper.readValue(inputStream, typeReference);
 		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Erro ao fazer parseamento do arquivo");
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Erro ao fazer mapeamento do arquivo");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Erro de entrada ou saída.");
 		}
 		try {
 			inputStream.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Erro ao fechar input stream");
+		}
+		
+		if(lista.isEmpty()) {
+			System.out.println("Não existem clientes cadastrados!");
 		}
 		return lista;
 	}
