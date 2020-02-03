@@ -14,6 +14,6 @@ public class ClienteCadastro {
 	}
 	
 	public void cadastra(Cliente cliente) {
-		clienteDAO.add(cliente);
+		clienteDAO.adicionaCliente(cliente);
 	}
 }

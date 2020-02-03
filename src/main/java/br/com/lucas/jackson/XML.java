@@ -1,8 +1,10 @@
 package br.com.lucas.jackson;
 
+import java.util.List;
+
 public interface XML {
 
-	public void escreveNoArquivo(Object object);
+	public abstract void escreveListaNoArquivo();
 	
-//	public Object desserializar(String file);
+	public abstract List<?> getLista();
 }

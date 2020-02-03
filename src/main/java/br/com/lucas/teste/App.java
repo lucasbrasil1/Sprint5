@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import br.com.lucas.dao.ClienteDAO;
 import br.com.lucas.modelo.Cliente;
 import br.com.lucas.modelo.Pedido;
 import br.com.lucas.modelo.Produto;
 import br.com.lucas.service.ClienteCadastro;
 import br.com.lucas.service.ClienteLista;
-import br.com.lucas.service.PedidoCadastro;
 import br.com.lucas.service.ProdutoCadastro;
 import br.com.lucas.service.ProdutoLista;
 
@@ -62,7 +60,6 @@ public class App {
 
 	private static void cadastraPedido() throws IOException {
 		Pedido pedido = new Pedido();
-		PedidoCadastro cadastro = new PedidoCadastro();
 		System.out.println("Digite o código do cliente do pedido: ");
 //		pedido.setCliente(new ClienteLista().findId(Integer.parseInt(scan.next())));
 		int codigo = Integer.parseInt(scan.next());

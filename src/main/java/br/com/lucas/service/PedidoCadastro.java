@@ -12,19 +12,13 @@ public class PedidoCadastro {
 	private PedidoDAO pedidoDAO;
 	private ProdutoLista listaDeProdutos;
 	private List<Produto> itensDoPedido;
-	
+
 	public PedidoCadastro() {
 		pedidoDAO = PedidoDAO.getInstance();
 	}
-	
+
 	public boolean cadastra(Pedido pedido) {
 		return pedidoDAO.add(pedido);
 	}
 
-	
-	
-	
-	
-
-	
 }

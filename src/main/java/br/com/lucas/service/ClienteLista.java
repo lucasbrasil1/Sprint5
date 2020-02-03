@@ -10,7 +10,7 @@ public class ClienteLista {
 	private ClienteDAO clienteDAO = new ClienteDAO();
 	
 	public List<Cliente> buscarTodos(){
-		return clienteDAO.buscaNoArquivo();
+		return (List<Cliente>) clienteDAO.getLista();
 	}
 	
 //	public Cliente findId(int id) {
