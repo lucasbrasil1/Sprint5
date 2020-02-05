@@ -21,7 +21,7 @@ public class Pedido {
 	}
 
 	public boolean adicionaItem(int codigo, int quantidade) throws IOException {
-		Produto produto = new ProdutoLista().buscaPorId(codigo);
+		Produto produto = new ProdutoLista().buscaPorId(codigo);	
 		
 		if (produto.equals(null)) {
 			System.out.println("Produto não existente.");
@@ -33,6 +33,7 @@ public class Pedido {
 		}
 
 		listaDeProdutos.add(produto);
+		//escrever no xml
 		setValorTotal(getValorTotal() + produto.getValor() * quantidade);
 		System.out.println("Item adicionado com sucesso.");
 		return true;

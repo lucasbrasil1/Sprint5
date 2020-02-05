@@ -17,29 +17,37 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import br.com.lucas.jackson.XML;
 import br.com.lucas.modelo.Produto;
 
-public class ProdutoDAO implements XML{
+public class ProdutoDAO implements XML {
 
 	private static final XmlMapper xmlMapper = new XmlMapper();
 	private static List<Produto> produtos = new ArrayList<Produto>();
 	private String filename = "produtos.xml";
 	private File arquivo = new File(filename);
 	private static ProdutoDAO instance;
-	
+
 	public static synchronized ProdutoDAO getInstance() throws IOException {
 		if (instance == null) {
 			instance = new ProdutoDAO();
 		}
 		return instance;
 	}
+
 	
-	
+	/*
+	 * Inicializa
+	 * -> Se existe o arquivo
+	 * --> Se existe conteúdo: Coloca na lista
+	 * --> Se não existe conteúdo : lista fica vazia
+	 * -> Se não existe o arquivo : Cria o arquivo
+	 */
+
 	public void add(Produto produto) {
-		//escreve no arquivo aqui
+		// escreve no arquivo aqui
 		produtos.add(produto);
 		escreveListaNoArquivo();
 	}
-	
-	public List<Produto> findAll(){
+
+	public List<Produto> findAll() {
 		return Collections.unmodifiableList(getLista());
 	}
 
@@ -51,6 +59,8 @@ public class ProdutoDAO implements XML{
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	@Override
 	public List<Produto> getLista() {
@@ -61,7 +71,8 @@ public class ProdutoDAO implements XML{
 			// TODO Auto-generated catch block
 			System.out.println("Erro, arquivo não encontrado!");
 		}
-		TypeReference<List<Produto>> typeReference = new TypeReference<List<Produto>>() {};
+		TypeReference<List<Produto>> typeReference = new TypeReference<List<Produto>>() {
+		};
 		List<Produto> lista = null;
 		try {
 			lista = xmlMapper.readValue(inputStream, typeReference);
@@ -81,7 +92,7 @@ public class ProdutoDAO implements XML{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(lista.isEmpty()) {
+		if (lista.isEmpty()) {
 			System.out.println("Lista vazia, inserir dados antes");
 			return null;
 		}

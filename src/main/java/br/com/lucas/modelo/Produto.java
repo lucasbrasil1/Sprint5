@@ -31,8 +31,16 @@ public class Produto {
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
+	
 	public boolean verificaQuantidade(int qt) {
 		if (this.quantidade >= qt) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean descontaDoEstoque(int qt) {
+		if (verificaQuantidade(qt)) {
 			this.quantidade -= qt;
 			return true;
 		}

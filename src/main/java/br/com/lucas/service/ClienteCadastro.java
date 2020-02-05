@@ -7,7 +7,7 @@ import br.com.lucas.modelo.Cliente;
 
 public class ClienteCadastro {
 	
-	private ClienteDAO clienteDAO;
+	private static ClienteDAO clienteDAO;
 	private ClienteLista listaDeClientes = new ClienteLista();
 	
 	public ClienteCadastro() throws IOException {
@@ -19,7 +19,5 @@ public class ClienteCadastro {
 			System.out.println("Código já está sendo utilizado!");
 			return;
 		}
-		
-		clienteDAO.adicionaCliente(cliente);
 	}
 }

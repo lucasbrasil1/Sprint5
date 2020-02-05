@@ -35,12 +35,13 @@ public class PedidoDAO implements XML {
 	}
 	
 	public PedidoDAO() {
-		escreveListaNoArquivo();
 		listaDePedidos = getLista();
 	}
 	
 	public boolean add(Pedido pedido) {
-		return listaDePedidos.add(pedido);
+		listaDePedidos.add(pedido);
+		escreveListaNoArquivo();
+		return true;
 	}
 	
 	public List<Pedido> findAll(){

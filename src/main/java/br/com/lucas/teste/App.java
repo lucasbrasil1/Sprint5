@@ -89,7 +89,7 @@ public class App {
 		 * Manda para o XML
 		 */
 		
-		cliente = cadastro.getCliente(codigo);
+//		cliente = cadastro.getCliente(codigo);
 		pedido.setCliente(cliente);
 
 		listaEstoque();
@@ -119,9 +119,7 @@ public class App {
 
 	private static void listaClientes() {
 		List<Cliente> listaClientes = new ClienteLista().buscarTodos();
-		if(listaClientes != null)
-		listaClientes.forEach(cliente -> System.out.println("Código: "+cliente.getId()+" - Nome: "+cliente.getNome()));
-		
+		listaClientes.forEach(c -> System.out.println(c));
 		
 	}
 

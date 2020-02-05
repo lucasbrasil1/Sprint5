@@ -1,6 +1,6 @@
 package br.com.lucas.modelo;
 
-public class Cliente {
+public class Cliente{
 
 	private int id;
 	private String nome;
@@ -16,6 +16,11 @@ public class Cliente {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	@Override
+	public String toString() {
+		return "Código: "+this.getId()+ " - Nome: "+this.getNome();
 	}
 	
 	

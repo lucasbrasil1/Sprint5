@@ -18,8 +18,8 @@ public class PedidoCadastro {
 		return pedidoDAO.add(pedido);
 	}
 
-	public Cliente getCliente(int codigo) {
-		return listaDeClientes.getClientePorID(codigo);
-	}
+//	public Cliente getCliente(int codigo) {
+//		return listaDeClientes.getClientePorID(codigo);
+//	}
 
 }
